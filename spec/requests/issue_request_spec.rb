@@ -22,7 +22,7 @@ RSpec.describe 'Issue API' do
     expect(body.count).to eq(3)
     expect(issue_1['summary']).to eq('Hello world')
     expect(issue_1['status']).to eq('Active')
-    expect(issue_1['reporter_id']).to eq(@user_1.id)
-    expect(issue_1['assignee_id']).to eq(@user_2.id)
+    expect(issue_1['reporter']['name']).to eq('John Doe')
+    expect(issue_1['assignee']['name']).to eq('Mary Anne')
   end
 end
