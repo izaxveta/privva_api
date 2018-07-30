@@ -30,4 +30,16 @@ RSpec.describe 'User' do
       end
     end
   end
+
+  context 'relationships' do
+    it 'has many reported_issues' do
+      reflect = User.reflect_on_association(:reported_issues)
+      expect(reflect.macro).to eq(:has_many)
+    end
+
+    it 'has many assigned_issues' do
+      reflect = User.reflect_on_association(:assigned_issues)
+      expect(reflect.macro).to eq(:has_many)
+    end
+  end
 end
