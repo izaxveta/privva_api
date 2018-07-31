@@ -4,9 +4,7 @@ RSpec.describe Issue, type: :model do
   context 'validations' do
     it { should validate_presence_of(:summary) }
     it { should validate_presence_of(:status) }
-    it do
-      should define_enum_for(:status).with([:created, :open, :closed, :archived])
-    end
+    it { should define_enum_for(:status).with([:created, :open, :closed, :archived]) }
   end
 
   context 'relationships' do
