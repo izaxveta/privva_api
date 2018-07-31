@@ -13,7 +13,7 @@ if Rails.env.development?
   puts "-- Successfully created #{User.count}/8 Users."
 
   summary = ['summary a', 'summary b', 'summary c', 'summary d', 'summary e', 'summary f']
-  status = ['ACTIVE', 'INACTIVE', 'CLOSED', 'RESOLVED']
+  status = [0, 1, 2, 3]
 
   100.times do
     issue = Issue.create(summary: summary.sample, status: status.sample, reporter: reporters.sample, assignee: assignees.sample )

@@ -20,10 +20,10 @@ RSpec.describe User, type: :model do
       @reporter_2 = User.create!(name: 'Bill Compton', email: 'bill.compton@mail.com')
       @assignee_1 = User.create!(name: 'Pam Beaufort', email: 'pam.beaufort@mail.com')
       @assignee_2 = User.create!(name: 'Jessica Hamby', email: 'jessica.hamby@mail.com')
-      Issue.create!(summary: 'Sample summary', status: 'ACTIVE', reporter: @reporter_1, assignee: @assignee_1)
-      Issue.create!(summary: 'Sample summary', status: 'ACTIVE', reporter: @reporter_2, assignee: @assignee_1)
-      Issue.create!(summary: 'Sample summary', status: 'ACTIVE', reporter: @reporter_1, assignee: @assignee_1)
-      Issue.create!(summary: 'Sample summary', status: 'ACTIVE', reporter: @reporter_2, assignee: @assignee_2)
+      Issue.create!(summary: 'Sample summary', status: 0, reporter: @reporter_1, assignee: @assignee_1)
+      Issue.create!(summary: 'Sample summary', status: 1, reporter: @reporter_2, assignee: @assignee_1)
+      Issue.create!(summary: 'Sample summary', status: 2, reporter: @reporter_1, assignee: @assignee_1)
+      Issue.create!(summary: 'Sample summary', status: 3, reporter: @reporter_2, assignee: @assignee_2)
     end
 
     it '.reported_issues returns all associated reported issues given a user' do
