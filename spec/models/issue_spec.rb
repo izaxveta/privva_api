@@ -4,6 +4,9 @@ RSpec.describe Issue, type: :model do
   context 'validations' do
     it { should validate_presence_of(:summary) }
     it { should validate_presence_of(:status) }
+    it do
+      should define_enum_for(:status).with([:created, :open, :closed, :archived])
+    end
   end
 
   context 'relationships' do
@@ -16,8 +19,8 @@ RSpec.describe Issue, type: :model do
       reporter_1 = User.create!(name: 'Eric Northman', email: 'eric.northman@mail.com')
       reporter_2 = User.create!(name: 'Bill Compton', email: 'bill.compton@mail.com')
       assignee_1 = User.create!(name: 'Pam Beaufort', email: 'pam.beaufort@mail.com')
-      @issue_1 = Issue.create!(summary: 'Sample summary 1', status: 'ACTIVE', reporter: reporter_1, assignee: assignee_1)
-      @issue_2 = Issue.create!(summary: 'Sample summary 2', status: 'INACTIVE', reporter: reporter_2, assignee: assignee_1)
+      @issue_1 = Issue.create!(summary: 'Sample summary 1', status: 0, reporter: reporter_1, assignee: assignee_1)
+      @issue_2 = Issue.create!(summary: 'Sample summary 2', status: 1, reporter: reporter_2, assignee: assignee_1)
     end
 
     it '.find_by_summary should return issues whose summaries contain a given string' do
