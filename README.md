@@ -74,7 +74,7 @@ localhost:3000/api/v1/issues
 
 Such a request will return JSON of all Issues existing within the specified environment's database. Below are all parameters that can be used to customize a query.
 
-| Attribute | Description |
+| Query Parameter | Description |
 | --- | --- |
 | `:issue_summary` | Will return all Issues with summaries that match a given string - Example: `/api/v1/issues?issue_summary=Hello World` |
 | `:reporter_name` | Will return all Issues reported by a user whose name matches a given value - Example: `/api/v1/issues?reporter_name=Bill Compton` |
