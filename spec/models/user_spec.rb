@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:assigned_issues) }
   end
 
-  context 'method' do
+  context 'methods' do
     before :all do
       @reporter_1 = User.create!(name: 'Eric Northman', email: 'eric.northman@mail.com')
       @reporter_2 = User.create!(name: 'Bill Compton', email: 'bill.compton@mail.com')
@@ -27,20 +27,20 @@ RSpec.describe User, type: :model do
     end
 
     it '.reported_issues returns all associated reported issues given a user' do
-      actual = User.reported_issues(@reporter_1.name)
-      expect(actual.count).to eq(2)
-      expect(actual).to eq(@reporter_1.reported_issues)
-      expect(actual[0].reporter.email).to eq(@reporter_1.email)
-      expect(actual[1].reporter.email).to eq(@reporter_1.email)
+      subject = User.reported_issues(@reporter_1.name)
+      expect(subject.count).to eq(2)
+      expect(subject).to eq(@reporter_1.reported_issues)
+      expect(subject[0].reporter.email).to eq(@reporter_1.email)
+      expect(subject[1].reporter.email).to eq(@reporter_1.email)
     end
 
     it '.assigned_issues returns all associated assigned issues given a user' do
-      actual = User.assigned_issues(@assignee_1.name)
-      expect(actual.count).to eq(3)
-      expect(actual).to eq(@assignee_1.assigned_issues)
-      expect(actual[0].assignee.email).to eq(@assignee_1.email)
-      expect(actual[1].assignee.email).to eq(@assignee_1.email)
-      expect(actual[2].assignee.email).to eq(@assignee_1.email)
+      subject = User.assigned_issues(@assignee_1.name)
+      expect(subject.count).to eq(3)
+      expect(subject).to eq(@assignee_1.assigned_issues)
+      expect(subject[0].assignee.email).to eq(@assignee_1.email)
+      expect(subject[1].assignee.email).to eq(@assignee_1.email)
+      expect(subject[2].assignee.email).to eq(@assignee_1.email)
     end
   end
 end
