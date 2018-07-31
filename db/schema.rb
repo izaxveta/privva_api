@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20180730014106) do
     t.string "status"
     t.bigint "reporter_id"
     t.bigint "assignee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["assignee_id"], name: "index_issues_on_assignee_id"
     t.index ["reporter_id"], name: "index_issues_on_reporter_id"
   end
@@ -27,6 +29,8 @@ ActiveRecord::Schema.define(version: 20180730014106) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

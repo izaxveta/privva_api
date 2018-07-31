@@ -1,82 +1,64 @@
 require 'rails_helper'
 
-RSpec.describe 'Issue' do
-  describe 'validations' do
-    context 'invalid attributes' do
-      it 'is invalid without a summary' do
-        reporter = User.create(name: 'Mary Anne', email: 'mary.anne@mail.com')
-        assignee = User.create(name: 'John Doe', email: 'john.doe@mail.com')
-        issue = Issue.create(
-          status: 'Active',
-          reporter: reporter,
-          assignee: assignee
-        )
-
-        expect(issue).to be_invalid
-      end
-
-      it 'is invalid without a status' do
-        reporter = User.create(name: 'Mary Anne', email: 'mary.anne@mail.com')
-        assignee = User.create(name: 'John Doe', email: 'john.doe@mail.com')
-        issue = Issue.create(
-          summary: 'Hello World',
-          reporter: reporter,
-          assignee: assignee
-        )
-
-        expect(issue).to be_invalid
-      end
-
-      it 'is invalid without a reporter' do
-        assignee = User.create(name: 'John Doe', email: 'john.doe@mail.com')
-        issue = Issue.create(
-          summary: 'Hello world',
-          status: 'Active',
-          assignee: assignee
-        )
-
-        expect(issue).to be_invalid
-      end
-
-      it 'is invalid without an assignee' do
-        reporter = User.create(name: 'Mary Anne', email: 'mary.anne@mail.com')
-        issue = Issue.create(
-          summary: 'Hello world',
-          status: 'Active',
-          reporter: reporter
-        )
-
-        expect(issue).to be_invalid
-      end
-    end
-
-    context 'valid attributes' do
-      it 'is valid with a summary, status, reporter, and assignee' do
-        reporter = User.create(name: 'Mary Anne', email: 'mary.anne@mail.com')
-        assignee = User.create(name: 'John Doe', email: 'john.doe@mail.com')
-        issue = Issue.create(
-          summary: 'Hello World',
-          status: 'Active',
-          reporter: reporter,
-          assignee: assignee
-        )
-
-        expect(issue).to be_valid
-      end
-    end
+RSpec.describe Issue, type: :model do
+  context 'validations' do
+    it { should validate_presence_of(:summary) }
+    it { should validate_presence_of(:status) }
   end
 
-  describe 'relationships' do
-    it 'belongs to a User reporter' do
-      relation = Issue.reflect_on_association(:reporter)
-      expect(relation.macro).to eq(:belongs_to)
+  context 'relationships' do
+    it { should belong_to(:reporter) }
+    it { should belong_to(:assignee) }
+  end
+
+  context 'methods' do
+    before :all do
+      reporter_1 = User.create!(name: 'Eric Northman', email: 'eric.northman@mail.com')
+      reporter_2 = User.create!(name: 'Bill Compton', email: 'bill.compton@mail.com')
+      assignee_1 = User.create!(name: 'Pam Beaufort', email: 'pam.beaufort@mail.com')
+      @issue_1 = Issue.create!(summary: 'Sample summary 1', status: 'ACTIVE', reporter: reporter_1, assignee: assignee_1)
+      @issue_2 = Issue.create!(summary: 'Sample summary 2', status: 'INACTIVE', reporter: reporter_2, assignee: assignee_1)
     end
 
-    it 'belongs to a User assignee' do
-      relation = Issue.reflect_on_association(:assignee)
-      expect(relation.macro).to eq(:belongs_to)
+    it '.find_by_summary should return issues whose summaries contain a given string' do
+      subject = Issue.find_by_summary('summary 1')
+      expect(subject.first).to eq(@issue_1)
+    end
+
+    it '.handle_sort can sort all issues by summaries descending' do
+      subject = Issue.handle_sort('summary DESC')
+      expect(subject.first).to eq(@issue_2)
+      expect(subject.last).to eq(@issue_1)
+    end
+
+    it '.handle_sort can sort all issues by summaries ascending' do
+      subject = Issue.handle_sort('summary')
+      expect(subject.first).to eq(@issue_1)
+      expect(subject.last).to eq(@issue_2)
+    end
+
+    it '.handle_sort can sort all issues by status descending' do
+      subject = Issue.handle_sort('status DESC')
+      expect(subject.first).to eq(@issue_2)
+      expect(subject.last).to eq(@issue_1)
+    end
+
+    it '.handle_sort can sort all issues by status ascending' do
+      subject = Issue.handle_sort('status')
+      expect(subject.first).to eq(@issue_1)
+      expect(subject.last).to eq(@issue_2)
+    end
+
+    it '.handle_sort can sort all issues by created_at descending' do
+      subject = Issue.handle_sort('created_at DESC')
+      expect(subject.first).to eq(@issue_2)
+      expect(subject.last).to eq(@issue_1)
+    end
+
+    it '.handle_sort can sort all issues by created_at ascending' do
+      subject = Issue.handle_sort('created_at')
+      expect(subject.first).to eq(@issue_1)
+      expect(subject.last).to eq(@issue_2)
     end
   end
 end
-
-# issue has summary, status, reporter, and assignee
