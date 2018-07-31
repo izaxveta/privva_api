@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20180730014106) do
 
   create_table "issues", force: :cascade do |t|
     t.text "summary"
-    t.string "status"
+    t.integer "status", default: 0
     t.bigint "reporter_id"
     t.bigint "assignee_id"
     t.datetime "created_at", null: false
