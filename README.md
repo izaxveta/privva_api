@@ -9,7 +9,10 @@ The Privva API is an interface that allows you to query meta-data for User and I
 This project requires Ruby 2.3.1+ and Rails 5.1.6+
 
 ### Installing
-To interact with this API locally, clone down this repository into your local machine by running `git clone https://github.com/izaxveta/privva_api.git` in your machine's terminal.
+To interact with this API locally, clone down this repository into your local machine by running the following command in your machine's terminal:
+```
+git clone https://github.com/izaxveta/privva_api.git
+```
 
 Navigate into the cloned directory and run `bundle` in the terminal to download required Ruby gems and relevant dependencies.
 
