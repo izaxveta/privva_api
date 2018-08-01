@@ -95,4 +95,4 @@ Such a request will return JSON of all Issues existing within the specified envi
 
 ## Author
 
-* **Elizabeth Jimenez**
+* [Elizabeth Jimenez](https://github.com/izaxveta/) - *Initial product*
